@@ -1,0 +1,15 @@
+<section class="container board" *ngIf="jugando">
+    <h3 class="title">How many <span class="text-primary text-uppercase">{{modoActual}}</span> are in the word: <span class="text-success text-uppercase">{{palabraActual}}</span></h3>
+    <div class="row pt-5 d-flex justify-content-around align-items-center">
+        <button class="btn btn-primary col-5 m-1 p-5" *ngFor="let op of opciones" (click)="comprobarOpcion(op)">{{op}}</button>
+    </div>
+</section>
+
+<section class="container board" *ngIf="!jugando">
+    <h3 class="title">Select the game mode</h3>
+    <div class="row pt-5 px-4 d-flex justify-content-around align-items-center">
+        <button class="btn btn-primary col-12 m-1 p-5 text-uppercase" *ngFor="let mod of modosJuego" (click)="seleccionarModo(mod)">
+            {{mod}}
+        </button>
+    </div>
+</section>
