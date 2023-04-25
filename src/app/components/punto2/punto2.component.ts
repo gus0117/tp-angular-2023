@@ -12,7 +12,7 @@ export class Punto2Component {
   palabraActual:string = ""
   modoActual:string = ""
   jugando:boolean = false
-  opcionCorrecta:number = -1
+  opcionCorrecta:number = 0
 
   seleccionarModo(modo: string):void {
     this.modoActual = modo
@@ -39,7 +39,7 @@ export class Punto2Component {
     //Generar resultados incorrectos sin repetir los valores
     let i = 0
     while(i < 3){
-      let valor = Math.floor(Math.random() * resultado) + 5
+      let valor = Math.floor(Math.random() * (resultado + 5)) + 2
       if(this.comprobarRepetido(valor) === false){
         this.opciones.push(valor)
         i++
@@ -66,6 +66,7 @@ export class Punto2Component {
   intercambiarPosiciones():void {
     //Se genera una posicion aleatoria para la respuesta correcta
     this.opcionCorrecta = Math.floor(Math.random() * this.opciones.length)
+    console.log("Nueva opcion: "+this.opcionCorrecta)
     let aux = this.opciones[this.opcionCorrecta]
     this.opciones[this.opcionCorrecta] = this.opciones[0]
     this.opciones[0] = aux
