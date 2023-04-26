@@ -17,8 +17,20 @@ export class Punto2Component {
   puntuacion = 0
   gameOver = false
 
+  maxCantRondas = 3
+
   //Variables para los modals
   mensaje = ""
+
+  reiniciarJuego():void {
+    this.palabraActual = ""
+    this.modoActual = 0 // indice del modo de juego actual
+    this.jugando = false
+    this.opcionCorrecta = 0
+    this.rondaActual = 1
+    this.puntuacion = 0
+    this.gameOver = false
+  }
 
   //Inicia una nueva ronda y muestra el tablero de juego
   iniciarJuego():void {
@@ -112,24 +124,25 @@ export class Punto2Component {
   comprobarOpcion(valor:number) {
     if(valor == this.opciones[this.opcionCorrecta]){
       this.puntuacion++
-      this.mensaje = "Correcto!"
+      this.mostrarModal("Correcto")
     }
     else {
-      this.mensaje = "Incorrecto!"
+      this.mostrarModal("Incorrecto")
     }
-    this.aumentarRonda()
   }
 
   //Luego de responder se aumenta la ronda
   aumentarRonda():void {
-    if(this.rondaActual >= 8){
-      console.log("Fin del juego")
+    if(this.rondaActual >= this.maxCantRondas){
+      this.mensaje = "Puntuacion " + this.puntuacion
+      this.gameOver=true
       return
     }
     this.rondaActual++;
     this.iniciarNuevaRonda()
   }
 
-  mostrarModal():void {
+  mostrarModal(msj:string):void {
+    this.mensaje = msj
   }
 }
