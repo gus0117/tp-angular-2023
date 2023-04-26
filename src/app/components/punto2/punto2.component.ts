@@ -7,18 +7,18 @@ import { Component } from '@angular/core';
 })
 export class Punto2Component {
   palabras = ["gato", "perro", "serpiente", "carrera", "messi", "demichelis"]
-  modosJuego = ["vocales", "consonantes","silabas"]
+  modosJuego = ["vocales", "consonantes", "letras"]
   opciones = Array()
   palabraActual:string = ""
-  modoActual:string = ""
+  modoActual:number = 0 // indice del modo de juego actual
   jugando:boolean = false
   opcionCorrecta:number = 0
   rondaActual = 1
   puntuacion = 0
   gameOver = false
 
-  seleccionarModo(modo: string):void {
-    this.modoActual = modo
+  iniciarJuego():void {
+    this.modoActual = Math.floor(Math.random() * this.modosJuego.length)
     this.palabraActual = this.obtenerPalabra()
     this.generarOpciones()
     this.jugando = true
@@ -26,17 +26,16 @@ export class Punto2Component {
 
   obtenerPalabra():string{
     let numeroAleatorio = Math.floor(Math.random() * this.palabras.length)
-    console.log(numeroAleatorio)
     return this.palabras[numeroAleatorio]
   }
 
 
-  //Se genera la posicion donde estará la opción correcta
+  //Genera la lista de respuestas, por defecto la respuesta correcta es la primera
   generarOpciones(): void {
     //Array de funciones, en js se puede hacer ;)
-    let funciones = [this.contarVocales(), this.contarConsonantes()]
+    let funciones = [this.contarVocales(), this.contarConsonantes(), this.contarLetras()]
     //Segun el modo de juego se obtiene el resultado correcto
-    let resultado:number = funciones[this.modosJuego.indexOf(this.modoActual)]
+    let resultado:number = funciones[this.modoActual]
     this.opciones.push(resultado)
 
     //Generar resultados incorrectos sin repetir los valores
@@ -91,6 +90,10 @@ export class Punto2Component {
   contarConsonantes(): number {
     let cantidad = this.palabraActual.length - this.contarVocales()
     return cantidad
+  }
+
+  contarLetras(): number {
+    return this.palabraActual.length
   }
 
   //Comprueba que la opcion elegida por el usuario es correcta
