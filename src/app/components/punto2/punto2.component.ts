@@ -45,6 +45,9 @@ export class Punto2Component {
     let funciones = [this.contarVocales(), this.contarConsonantes(), this.contarLetras()]
     //Segun el modo de juego se obtiene el resultado correcto
     let resultado:number = funciones[this.modoActual]
+
+    //se reinicia el array de opciones
+    this.opciones = []
     this.opciones.push(resultado)
 
     //Generar resultados incorrectos sin repetir los valores
@@ -109,9 +112,11 @@ export class Punto2Component {
   comprobarOpcion(valor:number) {
     if(valor == this.opciones[this.opcionCorrecta]){
       this.puntuacion++
-      return
+      this.mensaje = "Correcto!"
     }
-    this.iniciarNuevaRonda()
+    else {
+      this.mensaje = "Incorrecto!"
+    }
     this.aumentarRonda()
   }
 
@@ -122,5 +127,9 @@ export class Punto2Component {
       return
     }
     this.rondaActual++;
+    this.iniciarNuevaRonda()
+  }
+
+  mostrarModal():void {
   }
 }

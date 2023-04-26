@@ -2,7 +2,7 @@
     <h3 class="title">Cuantas <span class="text-primary text-uppercase">{{modosJuego[modoActual]}}</span> hay en la palabra: <span class="text-success text-uppercase">{{palabraActual}}</span></h3>
     <h3 class="rounds">Ronda: {{rondaActual}}</h3>
     <div class="row pt-5 d-flex justify-content-around align-items-center">
-        <button class="btn btn-primary col-5 m-1 p-5" *ngFor="let op of opciones" (click)="comprobarOpcion(op)">{{op}}</button>
+        <button class="btn btn-primary col-5 m-1 p-5" *ngFor="let op of opciones" (click)="comprobarOpcion(op)" data-bs-toggle="modal" data-bs-target="#exampleModal">{{op}}</button>
     </div>
 </section>
 
@@ -11,7 +11,7 @@
     <div class="d-flex justify-content-center align-items-center">
         <button class="btn btn-success" (click)="iniciarJuego()">Jugar</button>
     </div>
-    
+
 </section>
 
 <section class="container board" *ngIf="gameOver">
@@ -22,22 +22,20 @@
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          {{mensaje}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{mensaje}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
+</div>
