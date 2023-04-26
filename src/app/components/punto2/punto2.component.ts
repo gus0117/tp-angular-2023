@@ -17,18 +17,27 @@ export class Punto2Component {
   puntuacion = 0
   gameOver = false
 
+  //Variables para los modals
+  mensaje = ""
+
+  //Inicia una nueva ronda y muestra el tablero de juego
   iniciarJuego():void {
-    this.modoActual = Math.floor(Math.random() * this.modosJuego.length)
-    this.palabraActual = this.obtenerPalabra()
-    this.generarOpciones()
+    this.iniciarNuevaRonda()
     this.jugando = true
   }
 
+  //Gestiona las reglas del juego
+  iniciarNuevaRonda():void {
+    this.modoActual = Math.floor(Math.random() * this.modosJuego.length)
+    this.palabraActual = this.obtenerPalabra()
+    this.generarOpciones()
+  }
+
+  //Obtiene una palbra aleatoria de la lista de palabras
   obtenerPalabra():string{
     let numeroAleatorio = Math.floor(Math.random() * this.palabras.length)
     return this.palabras[numeroAleatorio]
   }
-
 
   //Genera la lista de respuestas, por defecto la respuesta correcta es la primera
   generarOpciones(): void {
@@ -99,12 +108,10 @@ export class Punto2Component {
   //Comprueba que la opcion elegida por el usuario es correcta
   comprobarOpcion(valor:number) {
     if(valor == this.opciones[this.opcionCorrecta]){
-      console.log("Correcto")
       this.puntuacion++
       return
     }
-    console.log("Incorrecto")
-
+    this.iniciarNuevaRonda()
     this.aumentarRonda()
   }
 
