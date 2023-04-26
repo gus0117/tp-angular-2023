@@ -13,6 +13,9 @@ export class Punto2Component {
   modoActual:string = ""
   jugando:boolean = false
   opcionCorrecta:number = 0
+  rondaActual = 1
+  puntuacion = 0
+  gameOver = false
 
   seleccionarModo(modo: string):void {
     this.modoActual = modo
@@ -39,7 +42,8 @@ export class Punto2Component {
     //Generar resultados incorrectos sin repetir los valores
     let i = 0
     while(i < 3){
-      let valor = Math.floor(Math.random() * (resultado + 5)) + 2
+      //rango (resultado - 2 , resultado + 5)
+      let valor = Math.floor(Math.random() * (resultado + 5)) + 2 // se suma 5 para establecer un rango
       if(this.comprobarRepetido(valor) === false){
         this.opciones.push(valor)
         i++
@@ -93,8 +97,20 @@ export class Punto2Component {
   comprobarOpcion(valor:number) {
     if(valor == this.opciones[this.opcionCorrecta]){
       console.log("Correcto")
+      this.puntuacion++
       return
     }
-    console.log("Incorrecot")
+    console.log("Incorrecto")
+
+    this.aumentarRonda()
+  }
+
+  //Luego de responder se aumenta la ronda
+  aumentarRonda():void {
+    if(this.rondaActual >= 8){
+      console.log("Fin del juego")
+      return
+    }
+    this.rondaActual++;
   }
 }
