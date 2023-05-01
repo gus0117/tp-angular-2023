@@ -16,16 +16,16 @@
         </div>
         <div class="mb-3">
           <label for="dni" class="form-label">DNI</label>
-          <input type="number" class="form-control" id="dni" name="dni">
+          <input type="number" class="form-control" id="dni" name="dni" [(ngModel)]="ticket.dni">
         </div>
         <div class="mb-3">
           <label for="fechaCobro" class="form-label">Fecha Cobro</label>
-          <input type="date" class="form-control" id="fechaCobro" name="fechaCobro">
+          <input type="date" class="form-control" id="fechaCobro" name="fechaCobro" [(ngModel)]="ticket.fechaCobro">
         </div>
         <div class="mb-3 form-check" *ngIf="ticket.precioReal && ticket.tipoEspectador && ticket.precioCobrado">
           <label class="form-check-label">Total: ${{ticket.precioCobrado}}</label>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="comprobarTicket()">Registrar</button>
+        <button type="submit" class="btn btn-primary" (click)="registrarTicket()">Registrar</button>
       </form>
     </div>
     <div class="tickets-container">
@@ -44,7 +44,7 @@
           <tr *ngFor="let t of ticketsVendidos">
             <td>{{t.id}}</td>
             <td>{{t.dni}}</td>
-            <td>{{t.tipoEspectador}}</td>
+            <td>{{t.tipoEspectador  | tipoEspectador}}</td>
             <td>{{t.precioReal}}</td>
             <td>{{t.precioCobrado}}</td>
             <td>{{t.fechaCobro}}</td>

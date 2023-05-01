@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 
@@ -43,10 +44,7 @@ export class Punto5Component {
   }
 
   comprobarTicket():boolean {
-    return this.ticket.dni !== null &&
-          this.ticket.fechaCobro !== null &&
-          this.ticket.precioCobrado !== null &&
-          this.ticket.precioReal !== null &&
-          this.ticket.tipoEspectador !== null
+    console.log(this.ticket.dni === null && this.ticket.precioCobrado === null)
+    return this.ticket.dni === null && this.ticket.precioCobrado === null
   }
 }
