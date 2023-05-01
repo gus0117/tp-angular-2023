@@ -4,7 +4,7 @@
       <form>
         <div class="mb-3">
           <label for="tipoEspectador" class="form-label">Tipo de Espectador</label>
-          <select class="form-select" aria-label="Default select example" id="tipoEspectador" name="tipoEspectador" [(ngModel)]="ticket.tipoEspectador">
+          <select class="form-select" aria-label="Default select example" id="tipoEspectador" name="tipoEspectador" [(ngModel)]="ticket.tipoEspectador" (change)="calcularTotal()">
             <option selected>Seleccione el tipo de especador</option>
             <option value="l">Local</option>
             <option value="e">Extranjero</option>
@@ -12,19 +12,45 @@
         </div>
         <div class="mb-3">
           <label for="precioReal" class="form-label">Precio Real</label>
-          <input type="number" class="form-control" id="precioReal" name="precioReal" [(ngModel)]="ticket.precioReal">
+          <input type="number" class="form-control" id="precioReal" name="precioReal" [(ngModel)]="ticket.precioReal" (change)="calcularTotal()">
         </div>
         <div class="mb-3">
           <label for="dni" class="form-label">DNI</label>
           <input type="number" class="form-control" id="dni" name="dni">
         </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <div class="mb-3">
+          <label for="fechaCobro" class="form-label">Fecha Cobro</label>
+          <input type="date" class="form-control" id="fechaCobro" name="fechaCobro">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3 form-check" *ngIf="ticket.precioReal && ticket.tipoEspectador && ticket.precioCobrado">
+          <label class="form-check-label">Total: ${{ticket.precioCobrado}}</label>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="comprobarTicket()">Registrar</button>
       </form>
     </div>
-    
+    <div class="tickets-container">
+      <table datatable class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>Tipo Espectador</th>
+            <th>Precio Real</th>
+            <th>Precio Cobrado</th>
+            <th>Fecha Compra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of ticketsVendidos">
+            <td>{{t.id}}</td>
+            <td>{{t.dni}}</td>
+            <td>{{t.tipoEspectador}}</td>
+            <td>{{t.precioReal}}</td>
+            <td>{{t.precioCobrado}}</td>
+            <td>{{t.fechaCobro}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     
 </section>

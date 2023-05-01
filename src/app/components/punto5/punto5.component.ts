@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Ticket } from 'src/app/models/ticket';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-punto5',
@@ -8,14 +9,44 @@ import { Ticket } from 'src/app/models/ticket';
 })
 export class Punto5Component {
   ticket: Ticket;
-  total: number;
   ticketsVendidos: Array<Ticket>;
 
-  constructor() {
+  constructor(private ticketService: TicketService) {
     this.ticket = new Ticket();
-    this.total = 0;
-    this.ticketsVendidos = new Array<Ticket>();
-/*     
-    this.mostrarHistorico(); */
+    this.ticketsVendidos = new Array<Ticket>();     
+    this.mostrarTickets();
+  }
+
+  calcularTotal():void{
+    if(this.ticket.tipoEspectador == null || this.ticket.precioReal == null){
+      return;
+    }
+
+    let total = this.ticket.precioReal;
+    if(this.ticket.tipoEspectador === "l"){
+      total -= this.ticket.precioReal * 0.2;
+    }
+    this.ticket.precioCobrado = total;
+  }
+
+  registrarTicket():void{
+    if(this.ticket === null){
+      return;
+    }
+
+    this.ticketService.addTicket(this.ticket);
+    this.ticket = new Ticket();
+  }
+
+  mostrarTickets():void {
+    this.ticketsVendidos = this.ticketService.getTickets();
+  }
+
+  comprobarTicket():boolean {
+    return this.ticket.dni !== null &&
+          this.ticket.fechaCobro !== null &&
+          this.ticket.precioCobrado !== null &&
+          this.ticket.precioReal !== null &&
+          this.ticket.tipoEspectador !== null
   }
 }
