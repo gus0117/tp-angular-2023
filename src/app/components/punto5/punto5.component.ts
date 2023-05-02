@@ -11,8 +11,14 @@ import { TicketService } from 'src/app/services/ticket.service';
 export class Punto5Component {
   ticket: Ticket;
   ticketsVendidos: Array<Ticket>;
+  cantExtranjero: number;
+  cantLocal: number;
+  total: number;
 
   constructor(private ticketService: TicketService) {
+    this.cantExtranjero = 0
+    this.cantLocal = 0;
+    this.total = 0;
     this.ticket = new Ticket();
     this.ticketsVendidos = new Array<Ticket>();     
     this.mostrarTickets();
@@ -46,5 +52,13 @@ export class Punto5Component {
   comprobarTicket():boolean {
     console.log(this.ticket.dni === null && this.ticket.precioCobrado === null)
     return this.ticket.dni === null && this.ticket.precioCobrado === null
+  }
+
+  mostrarTicket(t: Ticket):void {
+    this.ticket = new Ticket(t.id, t.dni, t.precioReal, t.tipoEspectador, t.fechaCobro, t.precioCobrado)
+  }
+
+  editarTicket(t: Ticket):void{
+    this.ticketService.updateTicket(t);
   }
 }
