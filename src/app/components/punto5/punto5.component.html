@@ -1,5 +1,5 @@
 <section class="container">
-    <h1 class="display-2 text-center">Gestion de Tickets</h1>
+    <h1 class="display-2 text-center py-4">Gestion de Tickets</h1>
     <div class="row">
       <div class="col-12 col-md-4 col-lg-4 col-xs-4 border border-success">
         <h3 class="bg-success text-center text-white">Resumen</h3>
@@ -46,7 +46,8 @@
     </div>
     
     <div class="tickets-container">
-      <table datatable class="table">
+      <h3 class="text-center" *ngIf="ticketsVendidos.length === 0">No hay tickets vendidos aún</h3>
+      <table datatable class="table" *ngIf="ticketsVendidos.length !== 0">
         <thead>
           <tr>
             <th>ID</th>
@@ -62,7 +63,7 @@
             <td>{{t.id}}</td>
             <td>{{t.dni}}</td>
             <td>{{t.tipoEspectador  | tipoEspectador}}</td>
-            <td>{{t.precioReal | number:'1.2'}}</td>
+            <td>${{t.precioReal | number:'1.2'}}</td>
             <td>${{t.precioCobrado | number:'1.2'}}</td>
             <td>{{t.fechaCobro | date: 'dd/MM/yyyy'}}</td>
             <td><button class="btn btn-primary" (click)="mostrarTicket(t)">Editar</button></td>
