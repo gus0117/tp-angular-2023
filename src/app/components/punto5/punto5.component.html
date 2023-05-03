@@ -1,14 +1,15 @@
 <section class="container">
-    <h1 class="display-2 text-center">Compra de Ticket</h1>
+    <h1 class="display-2 text-center">Gestion de Tickets</h1>
     <div class="row">
-      <div class="col-12 col-md-4 col-lg-4 col-xs-4">
-        <h3>Resumen:</h3>
-        <p>Extranjeros:</p>
-        <p>Local:</p>
-        <p>Total:</p>
+      <div class="col-12 col-md-4 col-lg-4 col-xs-4 border border-success">
+        <h3 class="bg-success text-center text-white">Resumen</h3>
+        <p>Extranjeros: {{cantExtranjero}}</p>
+        <p>Local: {{cantLocal}}</p>
+        <p>Total: ${{total | number:'1.2'}}</p>
       </div>
       <div class="col-12 col-md-8 col-lg-8 col-xs-8">
-        <div class="form">
+        <h3 class="bg-success text-center text-white">Compra de Ticket</h3>
+        <div class="pb-4">
           <form>
             <div class="mb-3">
               <label for="tipoEspectador" class="form-label">Tipo de Espectador</label>
@@ -31,11 +32,13 @@
               <input type="date" class="form-control" id="fechaCobro" name="fechaCobro" [(ngModel)]="ticket.fechaCobro">
             </div>
             <div class="mb-3 form-check" *ngIf="ticket.precioReal && ticket.tipoEspectador && ticket.precioCobrado">
-              <label class="form-check-label">Total: ${{ticket.precioCobrado}}</label>
+              <label class="form-check-label">Total: ${{ticket.precioCobrado | number:'1.2'}}</label>
             </div>
-            <button type="submit" class="btn btn-primary" (click)="registrarTicket()">
-              <span *ngIf="!ticket.id">Registrar</span>
-              <span *ngIf="ticket.id">Actualizar</span>
+            <button type="submit" class="btn btn-primary" (click)="registrarTicket()" *ngIf="!ticket.id">
+              Registrar
+            </button>
+            <button type="submit" class="btn btn-primary" (click)="actualizarTicket()" *ngIf="ticket.id">
+              Actualizar
             </button>
           </form>
         </div>
@@ -59,9 +62,9 @@
             <td>{{t.id}}</td>
             <td>{{t.dni}}</td>
             <td>{{t.tipoEspectador  | tipoEspectador}}</td>
-            <td>{{t.precioReal}}</td>
-            <td>{{t.precioCobrado}}</td>
-            <td>{{t.fechaCobro}}</td>
+            <td>{{t.precioReal | number:'1.2'}}</td>
+            <td>${{t.precioCobrado | number:'1.2'}}</td>
+            <td>{{t.fechaCobro | date: 'dd/MM/yyyy'}}</td>
             <td><button class="btn btn-primary" (click)="mostrarTicket(t)">Editar</button></td>
           </tr>
         </tbody>

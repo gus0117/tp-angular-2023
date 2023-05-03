@@ -24,6 +24,7 @@ export class Punto5Component {
     this.mostrarTickets();
   }
 
+  //Calcula el precio cobrado
   calcularTotal():void{
     if(this.ticket.tipoEspectador == null || this.ticket.precioReal == null){
       return;
@@ -36,6 +37,7 @@ export class Punto5Component {
     this.ticket.precioCobrado = total;
   }
 
+  //Agrega un nuevo ticket
   registrarTicket():void{
     if(this.ticket === null){
       return;
@@ -43,10 +45,37 @@ export class Punto5Component {
 
     this.ticketService.addTicket(this.ticket);
     this.ticket = new Ticket();
+    this.mostrarTickets();
+    this.generarResumen();
   }
 
+  actualizarTicket():void{
+    if(this.ticket === null){
+      return;
+    }
+    this.ticketService.updateTicket(this.ticket);
+    this.ticket = new Ticket();
+    this.mostrarTickets();
+    this.generarResumen();
+  }
+
+  //Carga todos los tickets cargados
   mostrarTickets():void {
     this.ticketsVendidos = this.ticketService.getTickets();
+  }
+
+  //Obtiene la info para el resumen
+  //Se genera cada vez que la tabla sea modificada
+  generarResumen():void {
+    this.cantExtranjero = 0;
+    this.cantLocal = 0;
+    this.ticketsVendidos.forEach( t => {
+      switch(t.tipoEspectador){
+        case "l" : this.cantLocal++; break;
+        case "e" : this.cantExtranjero++; break;
+      }
+      this.total += t.precioCobrado;
+    })
   }
 
   comprobarTicket():boolean {
