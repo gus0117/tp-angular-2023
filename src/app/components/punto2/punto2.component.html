@@ -1,5 +1,5 @@
 <section class="container board" *ngIf="jugando && !gameOver">
-    <h3 class="title">Cuantas <span class="text-primary text-uppercase">{{modosJuego[modoActual]}}</span> hay en la palabra: <span class="text-success text-uppercase">{{palabraActual}}</span></h3>
+    <h3 class="title">Cuantas <span class="text-primary text-uppercase">{{modoJuego}}</span> hay en la palabra: <span class="text-success text-uppercase">{{palabraActual}}</span></h3>
     <h3 class="rounds">Ronda: {{rondaActual}}</h3>
     <div class="row pt-5 d-flex justify-content-around align-items-center">
         <button class="btn btn-primary col-5 m-1 p-5" *ngFor="let op of opciones" (click)="comprobarOpcion(op)" data-bs-toggle="modal" data-bs-target="#mensajeModal">{{op}}</button>
