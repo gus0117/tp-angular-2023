@@ -19,7 +19,10 @@ export class Punto1Component {
   total = 0
 
   agregarCarrito(producto: any): void{
-    //const producto = this.productos.find( p => p.id == id)
+    if(this.carrito.includes(producto, 0)){
+      //Si el producto ya se encuentra en el carrito no lo vuelve a agregar
+      return;
+    }
     this.carrito.push(producto)
     this.total += producto.precio
     console.log(this.carrito)
